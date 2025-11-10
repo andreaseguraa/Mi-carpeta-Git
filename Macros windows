@@ -1,0 +1,144 @@
+@echo off
+if exist pepe.txt (type pepe.txt) else (echo no existe pepe.txt)
+
+
+if exist pepe.txt (
+    echo contenido del fichero pepe.txt
+    type pepe.txt
+    ) else (
+            echo no existe pepe.txt
+            )
+
+
+ping 8.8.8.8 
+if errorlevel 1 (echo no hay conexion) else (echo si hay conexion=)
+
+ping -n 1 8.8.8.8 ara que envie solo un paquete
+
+-----****SIEMPRE HAY QUE HACER LAS ORDENES DE MAYOR A MENOR****-----
+
+
+
+
+3. Hacer una macro que copie el fichero pepe.txt en el directorio copia.
+
+if not exist copia (echo no eciste el directorio, paso a crearlo & md copia)
+if exist pepe.txt (copy pepe.txt copia) else (echo no existe el fichero)
+
+
+PARAMETROS = algo que yo introduzco al tiempo de ejecucion      EJEMPLO (el .bat se llama m5)
+@echo off
+cls
+echo Hola %1 
+(para mostrar resultado: m5 (y ponemos lo que queramos a continuacion, por ejemplo Andrea))
+Resultado Hola Andrea
+
+
+5. Hacer una macro que copie el fichero pepe.txt en el directorio que se indique por parámetro.
+echo Indica un directorio a continuacion para copiar el fichero %1
+if exist pepe.txt (copy pepe.txt %1) else (echo no existe pepe.txt)
+
+
+6. Hacer un fichero BAT, llamado fichero1.bat, que admita como parámetro el nombre de un fichero y,
+dependiendo de si existe o no dicho fichero, muestre su contenido o indique un mensaje de error.
+
+copy con fichero1.bat
+$1 = fichero
+if exist %1 (type %1) else (echo no existe el fichero %1)
+
+El contenido paginado es en vez de poner type poner more
+
+7.
+
+if "%1" == ""          ESTO COMPARA LO QUE ESTÁ ENTRE COMILLAS CON LO QUE HAY DENTRO DE LAS COMILLAS
+tambien se puede usar if %1. == . (echo tienes q meter el nombre de un fichero & goto :eof)
+
+
+8.
+
+d)
+if %1. == . (echo tienes que meter el nombre de un directorio)
+
+a. Copiar todo el contenido de un directorio, previamente seleccionado por el usuario, sobre otro
+directorio también seleccionado por el usuario. Directorio destino y origen son dos parámetros.
+
+xcopy %1 %2 /e              (el /e es para que copie todo, incluso subdirectorios vacios)
+
+
+if not exist %2 (  
+echo que no existe el directorio destino, se crea md %2
+XCOPY %1 %2 /e
+CALL muestra.bat %2)
+) else (
+    xcopy %1 %2 /e
+)
+
+
+b. Si no existe el directorio destino, se visualizará un mensaje de error indicando tal circunstancia y se
+creará.
+
+@echo off
+
+echo archivos copiados en el directorio %1
+type %1\*.*
+
+
+c. En caso de no existir el directorio destino, se ejecutará un segundo proceso BATCH que visualizará el
+contenido de todos los archivos que se han copiado sobre el nuevo directorio.
+
+if %1. == . (echo tienes que meter el directorio origen & goto :eof)
+if %2. == . (echo tienes que meter el directorio destino & goto :eof)
+
+if not exist %2 (md %2 & dir %2) no
+
+ ,teas epaco rlr,
+
+
+
+
+
+
+
+
+
+md crear directorio
+copy con (crear un fichero)
+ctrl c para guardar
+goto :eof (vete al final del fichero (end of file))
+type (ver el contenido de un fichero)
+
+
+
+
+Haz una macro llamada copiafich que copie en el directorio indicado como primer parámetro los ficheros del directorio actual que empiecen por la letra indicada como segundo parámetro y que tengan como extensión la indicada como tercer parámetro.
+
+La macro debe controlar si el directorio indicado existe o no, y si no existe hay que emitir un mensaje de error y terminar sin hacer copias.
+
+Además, tiene que controlar que se hayan introducido los tres parámetros.
+
+
+@echo off
+cls
+
+if %1.==. (Echo no has introducido ni el destino ni la letra ni la extension & goto :eof)
+
+if %2.==. Echo no has indicado la letra por la que empiezan los nombres de fichero ni tampoco la extensión & goto :eof
+
+if %3.==. Echo ERROR: no ha indicado la extensión & goto :eof
+
+if not exist %1 echo ERROR: el directorio que ha indicado no existe en el disco & goto :eof
+
+copy %2*.%3 %1
+
+copiafich copia m txt
+
+
+
+el * sirve para mostrar ficheros que tengan lo que sea dentro. Si se pone f* se muestran todos los ficheros que empicen por f.
+
+el ? sirve para un solo caracter, es decir, que contengan ese unico caracter en esa posicion. Si se ponen ??? va a ir a la tercera posicion. Si se pone ?+nºposicion se irá al numero de la posicion que hemos indicado
+EJ: dir ?pe muestra todos los ficheros que tengan una p en la segunda posicion del nombre del fichero.
+
+
+
+
