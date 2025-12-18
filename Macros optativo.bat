@@ -19,5 +19,12 @@ eol=c : a partir de que caracter quiero que no haga caso.
 
 FOR /F "tokens" %%a IN (*.txt) DO ECHO (%%a, %%b, %%c)     Resultado: va a coger los 3 tokens
 
-EJEMPLOS
+EJERICIOS
+1.
+FOR /F "tokens=1,2 delims=," %%a IN (ubica.txt) DO ECHO (%%a, %%b) // tambien se puede poner ECHO Nombre: %%a Ubicación: %%b 
+
+2. 
+FOR /F "tokens=1 delims= " %%a in (usus.txt) do net user %%a /add
+FOR /F "tokens=1,2 delims= " %%a in (usus.txt) do net user %%a /add net localgroup %%b /add
+
 
