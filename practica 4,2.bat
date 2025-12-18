@@ -53,25 +53,27 @@ Para poder indicar ficheros concretos que queremos copiar (en este caso), vamos 
             pause
             cls
         )
-
+        
 6. 
 if %1.==. echo falta indicar destino & goto eof   (si el usuario ha metido algo)
 	if not exist %1 md %1  (SE COMPRUEBA SI EXISTE Y SI NO EXISTE LO CREO CON MD)
 	for %%x in (%2*) do (echo copiando archivo %%x & copy %%x %1)  (SE COPIAN LOS FICHEROS QUE COINCIDEN CON EL PATRON %2)
 
-Aclaración: el for %%x in (%2*) sirve para indicar que la variable %2* va a pasar a ser %%x, es decir, si pusiera a* en vez de %2*, %%x tomaría uno de los valores a los que equivale a* (tomariía el primer archivo que empieza por a, luego el siguiente..)
+Aclaración: el for %%x in (%2*) sirve para indicar que la variable %2* va a pasar a ser %%x, 
+es decir, si pusiera a* en vez de %2*, %%x tomaría uno de los valores a los que equivale a* 
+(tomariía el primer archivo que empieza por a, luego el siguiente..)
 
 
 7. 
-for %%x in (*.*) do (
+for %%x in (a*) do (
         type %%x
         echo seguimos?
         choice /c sn
-        if errorlevel 2 (echo. & echo terminamos & goto :eof)
+        if errorlevel 2 (echo. & echo terminamos & goto:eof)
 )
 
 8. 
-FOR %%x (*.*) DO (
+FOR %%x in (*.*) DO (
     echo info sobre el fichero %%x
     echo nombre: %%~nx
     echo extension: %%~xx
@@ -80,6 +82,23 @@ FOR %%x (*.*) DO (
     echo. 
 )
 
-(notas generales)
+
+COMO LIMITAR UN FOR:
+se puede hacer con una "etiqueta". Se hace de la siguiente manera:
+:ETI 1
+    condiciones a añadir:
+    IF _____ GOTO:EOF
+goto:ETI1
+
+:eti1
+if %1.==.goto:EOF
+echo hola %1
+shift 
+goto:eti 1
+
+
+(notas           generales)
 ren = rename
 -n1 (hacer un solo envio de paquete)
+
+

@@ -138,7 +138,3 @@ el * sirve para mostrar ficheros que tengan lo que sea dentro. Si se pone f* se 
 
 el ? sirve para un solo caracter, es decir, que contengan ese unico caracter en esa posicion. Si se ponen ??? va a ir a la tercera posicion. Si se pone ?+nºposicion se irá al numero de la posicion que hemos indicado
 EJ: dir ?pe muestra todos los ficheros que tengan una p en la segunda posicion del nombre del fichero.
-
-
-
-
