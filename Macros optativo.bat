@@ -25,6 +25,12 @@ FOR /F "tokens=1,2 delims=," %%a IN (ubica.txt) DO ECHO (%%a, %%b) // tambien se
 
 2. 
 FOR /F "tokens=1 delims= " %%a in (usus.txt) do net user %%a /add
-FOR /F "tokens=1,2 delims= " %%a in (usus.txt) do net user %%a /add net localgroup %%b /add
+FOR /F "tokens=1,2 delims= " %%a in (usus.txt) do (net user %%a /add & net localgroup %%b %%a /add)
+FOR /F "tokens=1 delims= " %%a in (bvarios.txt) do net user %%a /del 
 
-
+3.
+echo hola nombre: %1 y apellidos: %2 con edad %3
+pause
+call :DOS %1 %3
+:DOS
+echo confirmo que tu nombre es %1 y tu edad es %2
