@@ -98,3 +98,58 @@ palabra). La salida será: xxx.xxx.xxx.xxx.
 ipconfig | find "IPv4" > ip.txt
 FOR /F "tokens=2 delims=:" %%a IN (ip.txt) DO ECHO %%a
 
+Para mostrar lo que hay antes de los :
+ipconfig | find "IPv4" > ip.txt
+FOR /F "tokens=1,2 delims=:" %%a IN (ip.txt) DO ECHO %%a       Si quisieramos mostrar lo que hay antes y despues de los : seria: FOR /F "tokens=1,2 delims=:" %%a IN (ip.txt) DO ECHO %%a %%b
+
+Si quisiera hacerlo sin delimitador seria: 
+@echo off
+ipconfig | find "IPv4" > ip.txt
+FOR /F "tokens=1-17" %%a IN (ip.txt) DO (ECHO %%q)
+
+
+6. Macro que reciba como primer parámetro el nombre de un fichero y como segundo parámetro un número. 
+
+La macro debe ordenar el fichero indicado y guardar la ordenación resultante en otro fichero llamado c.ord, donde
+c es el número de columna por el que se ha ordenado el fichero. 
+
+Este proceso debe repetirse empezando por la primera columna del fichero y terminando por la que se indique como parámetro al ejecutar la macro.
+
+Ejemplo.- Si la macro se llama “ordena.bat”, la ejecución “ordena a.txt 4” debería generar cuatro ficheros
+llamados 1.ord, 2.ord, 3.ord y 4.ord; ordenados respectivamente por la primera columna, la segunda, la tercera
+y la cuarta.
+
+Intento: 
+@echo off
+
+For /L %%x in (1,1,2) do (
+
+IF %%x==1 do (For /f "tokens=1 delims=," %%a in (fich.txt) do sort %%a) > fichero1.txt
+
+IF %%x==2 do (For /f "tokens=1,2 delims=," %%b in (fich.txt) do sort %%b) > fichero2.txt
+)
+
+Solucion ejercicio nombres y edades:
+For /L %%x IN (1,1,2) DO (sort %1 /+%%x > %%x.ord)
+
+
+7. Macro que reciba como parámetros una o varias direcciones IP y devuelva el/los nombres de Host
+correspondientes:
+@echo off
+:eti1
+if %1.==. goto:eof
+echo direccion ip: %1
+nslookup %1 | find "nombre"
+shift
+goto:eti1
+
+for /f "delims=: tokens=2 %%a in ('ipconfig ^| find "IPv4"') do echo %%a
+
+
+8. 
+Type %1*.txt > %2\anexo.txt
+type anexo.txt
+
+forma 2:
+for %%x in (%1*.txt) do type %%x >> %2\anexo.txt
+type %2\anexo.txt

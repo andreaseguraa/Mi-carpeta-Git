@@ -48,3 +48,5 @@ goto:eti1
 Notas generales:
 
 %1.==. SIGNIFICA: el parametro esta vacio o cuando ya no me quedan mas parametros (dependiendo de si esta en un bucle o no)
+
+

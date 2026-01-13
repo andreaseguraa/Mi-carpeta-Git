@@ -96,11 +96,6 @@ if not exist %2 (md %2 & dir %2) no
 
 
 
-
-
-
-
-
 md crear directorio
 copy con (crear un fichero)
 ctrl c para guardar
