@@ -1,66 +1,58 @@
 <?php
+
 session_start();
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $_SESSION['numero_mesa'] = $_POST['numero_mesa'];
-    $_SESSION['tacos_guardados'] = $_POST['tacos'];
+
+$_SESSION['usuario'] = 'cliente1';
+$_SESSION['rol'] = 'cliente';
+
+//Muestro por pantalla el contenido de las variables
+
+$usuario = $_GET['usuario'];
+echo "Usuario recibido: $usuario";
+
+$rol = $_GET['rol'];
+echo "Rol asignado: $rol";
+
+// Elimino los datos de la sesión
+session_unset();
+
+//Destruyo la sesión
+
+if (session_destroy()) {
+    echo "Se ha cerrado la sesión";
 }
+
 ?>
 
-<!DOCTYPE html>
-<head>
-    <title>Pedido de tacos</title>
-</head>
-<body>
-
-    <h2>Orden</h2>
-
-    <form action="" method="POST">
-        <label for="numero_mesa">Número de mesa</label><br>
-        <input type="text" name="numero_mesa" required>
-        <br><br>
-
-        <label for="tacos">¿Cuántos tacos quieres?</label><br>
-        <select name="tacos">
-
-            <?php
-            for ($i = 1; $i <= 99; $i++) {
-                echo "<option value='$i'>Quiero $i tacos</option>";
-            }
-            ?>
-
-        </select>
-        <br><br>
-        <input type="submit" value="Enviar orden">
-    </form>
-
-    <hr>
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-        $numero_mesa = $_POST['numero_mesa'];
-        $tacos   = $_POST['tacos'];
-
-        echo "<h3>Resultado:</h3>";
-        echo "Orden de <b>$tacos</b> tacos mandada para la mesa número: <b>$numero_mesa</b>";
-    }
-    ?>
-</body>
-</html>
 
 
 
+// La base de datos se va a llamar examen.
 
-Datos tacos
 <?php
-session_start();
+$servidor = "localhost";
+$usuario = "usuario_bd";
+$password = "password_bd";
+$basedatos = "examen";
 
+$conexion = mysqli_connect($servidor, $usuario, $password, $examen);
 
-function cocinarTacos($cantidad, $mesa) {
-    echo "Se están cocinando " . $cantidad . " tacos para la mesa " . $mesa;
+$sql = "SELECT nombre, apellidos, email FROM clientes";
+$resultado = mysqli_query($conexion, $sql);
+
+echo "<table border='1'>";
+echo "<tr><th>Nombre</th><th>Apellidos</th><th>Email</th></tr>";
+
+while ($fila = mysqli_fetch_assoc($resultado)) {
+
+    echo "<tr>";
+    echo "<td>" . $fila["nombre"] . "</td>";
+    echo "<td>" . $fila["apellidos"] . "</td>";
+    echo "<td>" . $fila["email"] . "</td>";
+    echo "</tr>";
+
 }
-
-isset($_SESSION['numero_mesa'], $_SESSION['tacos_guardados']) && 
-    cocinarTacos($_SESSION['tacos_guardados'], $_SESSION['numero_mesa']);
+echo "</table>";
 
 ?>
 
